@@ -86,15 +86,16 @@
         if (selectedBlock === null) return;
         const currentChecklist = checklists[selectedBlock];
         const allDone = currentChecklist.every((item) => item.done);
-            if (allDone) {
+        if (allDone) {
         activeCount = checklists.filter((list) =>
             list.every((item) => item.done)
         ).length;
-        console.log(checklists.length);
+        //console.log(checklists.length);
         percentage = Math.round((activeCount / checklists.length) * 100);
         progressBar.set(percentage);
+        }
         unlockNext(selectedBlock);
-    }
+    
 }
 
     function unlockNext(index: number) {
@@ -122,23 +123,22 @@
         }
     }
     
+    
 </script>
 
 <div>
-    <h2 id="title">TDD with Playwright</h2>
-    <h3>Total XP</h3>
-    <progress value={progressBar.current / 100} id="AnimatedBar" data-testid="progressStatic"></progress>
+    <h2 id="title">Recent Groups</h2>
 </div><br>
 
 <div class="scrollbar">
     {#each {length : max} as t, i}
         {#if i == 0}
-            <ListBlock label={"Block " + (i + 1).toString()}  id={i.toString()} onToggle={() => selectBlock(i)} enable={true}></ListBlock>
+            <ListBlock label={"Topic " + (i + 1).toString()}  id={i.toString()} onToggle={() => selectBlock(i)} enable={true}></ListBlock>
         {:else}
-            <ListBlock label={"Block " + (i + 1).toString()}  id={i.toString()} onToggle={() => selectBlock(i)} enable={false}></ListBlock>
+            <ListBlock label={"Topic " + (i + 1).toString()}  id={i.toString()} onToggle={() => selectBlock(i)} enable={false}></ListBlock>
         {/if}
         {/each}
-    <ListBlock label={"Block Next"}  id={max + 1} onToggle={() => selectBlock(max + 1)} enable={true}></ListBlock>
+    <ListBlock label={"end"}  id={max + 1} onToggle={() => selectBlock(max + 1)} enable={true}></ListBlock>
 
 
 </div>
@@ -162,12 +162,13 @@
     #AnimatedBar{
         color:rgb(255, 163, 178);
     }
+    /*
     div.scrollbar {
-        width: 70px;
+        width: 670px;
         height: 50px;
         display: block;
         overflow-x: auto;
         white-space: nowrap;
         padding-right: 20%;
-    }
+    }*/
 </style>

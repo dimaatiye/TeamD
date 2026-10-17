@@ -12,8 +12,8 @@
     let selectedBlock = $state<number | null>(null);// is it null or number
 
     const checklists: Item[][] = [[
-        {id: "1", label: "I can write a Playwrite test that navigates to a route and asserts an element's text content", done:false},
-        {id: "2", label: "I can run Playwrite tests from the command line and read the output", done:false}
+        {id: "1", label: "I know how to open my laptop", done:false},
+        {id: "2", label: "I know how to wash the dishes", done:false}
        
     ],
     [
@@ -119,7 +119,7 @@
         }
         else
         {
-            title.textContent = "TDD with Playwright";
+            title.textContent = "Recent Groups";
         }
     }
     
@@ -142,9 +142,9 @@
 
 
 </div>
-
+{#if selectedBlock !== null}
 <h2 data-testid="counter" role="status">Tasks</h2>
-{#if selectedBlock !== null} 
+ 
     {#each checklists[selectedBlock] as item (item.id)}
         <ChecklistItem id={item.id} label={item.label} bind:done={item.done}></ChecklistItem><br>
     {/each}
@@ -171,4 +171,6 @@
         white-space: nowrap;
         padding-right: 20%;
     }*/
+
+    
 </style>

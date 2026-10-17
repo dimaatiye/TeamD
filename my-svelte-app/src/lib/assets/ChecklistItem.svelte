@@ -1,5 +1,5 @@
 <label>
-    {label}
+    
     <input 
         type="checkbox"
         id={id}
@@ -7,6 +7,7 @@
         onchange={handleChange}
         data-testid="checkbox-{id}"
     >
+    {label}
 </label>
 
 <script lang="ts">

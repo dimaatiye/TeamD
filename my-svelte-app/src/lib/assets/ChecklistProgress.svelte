@@ -83,19 +83,20 @@
     const progressBar = new Tween(0, {duration: 1000, easing: cubicOut});
 
     function updateCurrent() {
-        if (selectedBlock === null) return;
-        const currentChecklist = checklists[selectedBlock];
-        const allDone = currentChecklist.every((item) => item.done);
-        if (allDone) {
-        activeCount = checklists.filter((list) =>
-            list.every((item) => item.done)
-        ).length;
-        //console.log(checklists.length);
-        percentage = Math.round((activeCount / checklists.length) * 100);
+        const totalTasks = checklists.reduce(
+            (sum, list) => sum + list.length, 0
+        );
+        const completedTasks = checklists.reduce(
+            (sum, list) => sum + list.filter(item => item.done).length, 0
+        );
+            //console.log(checklists.length);
+        percentage = Math.round((completedTasks / totalTasks) * 100);
         progressBar.set(percentage);
-        }
+            
+        if (selectedBlock !== null) {
         unlockNext(selectedBlock);
-    
+        }
+        
 }
 
     function unlockNext(index: number) {
@@ -130,6 +131,16 @@
     <h2 id="title">Recent Groups</h2>
 </div><br>
 
+
+<div class="progress-container">
+    <progress
+        id="AnimatedBar"
+        value={progressBar.current}
+        max="100"
+    ></progress>
+</div>
+
+
 <div class="scrollbar">
     {#each {length : max} as t, i}
         {#if i == 0}
@@ -152,12 +163,32 @@
 
 {/if}
 <style>
+    .progress-container {
+        width: 450px;
+        margin-bottom: 20px;
+    }
+
     progress{
-        display:flex;
+        display:block;
         align-items: flex-end;
         float:left;
         width: 450px;
         height: 10;
+    }
+
+    progress::-webkit-progress-bar {
+    background-color: #eee;
+    border-radius: 10px;
+}
+
+    progress::-webkit-progress-value {
+        background-color: rgb(255, 163, 178);
+        border-radius: 10px;
+    }
+
+    progress::-moz-progress-bar {
+        background-color: rgb(255, 163, 178);
+        border-radius: 10px;
     }
     #AnimatedBar{
         color:rgb(255, 163, 178);
